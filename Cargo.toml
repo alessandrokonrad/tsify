@@ -40,7 +40,7 @@ json = [
   "dep:gloo-utils",
   "dep:serde_json",
 ]
-map_as_record = []
+map_as_record = ["tsify-macros/map_as_record"]
 
 [workspace]
 members = ["tsify-macros"]
