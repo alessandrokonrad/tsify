@@ -306,7 +306,9 @@ impl TsType {
             "HashMap" | "BTreeMap" if args.len() == 2 => {
                 let type_params = args.iter().map(|arg| Self::from_syn_type(arg)).collect();
 
-                let name = if cfg!(feature = "js") {
+                let name = if cfg!(feature = "map_as_record") {
+                    "Record"
+                } else if cfg!(feature = "js") {
                     "Map"
                 } else {
                     "Record"
