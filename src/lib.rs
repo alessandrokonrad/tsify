@@ -36,9 +36,16 @@ pub trait Tsify {
     where
         Self: serde::Serialize,
     {
-        self.serialize(&serde_wasm_bindgen::Serializer::new().serialize_maps_as_objects(true))
-            .map(JsCast::unchecked_from_js)
-        // serde_wasm_bindgen::to_value(self).map(JsCast::unchecked_from_js)
+        self.serialize(
+            &serde_wasm_bindgen::Serializer::new().serialize_maps_as_objects(
+                if cfg!(feature = "map_as_record") {
+                    true
+                } else {
+                    false
+                },
+            ),
+        )
+        .map(JsCast::unchecked_from_js)
     }
 
     #[cfg(feature = "js")]
